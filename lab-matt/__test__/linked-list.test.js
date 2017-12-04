@@ -2,7 +2,7 @@
 'use strict';
 
 // path to link js
-const LinkedList = require('/linked-list.js')
+const LinkedList = require('../lib/linked-list');
 
 describe('linked-list.js', () => {
   test('testing single element in list and no next', ()=> {
@@ -16,7 +16,7 @@ describe('linked-list.js', () => {
     result.append(new LinkedList(4));
     result.append(new LinkedList(10));
 
-    expect(results.value).toEqual(5);
+    expect(result.value).toEqual(5);
     expect(result.next.value).toEqual(4);
     expect(result.next.next.value).toEqual(10);
     expect(result.next.next.next).toEqual(null);
@@ -26,6 +26,7 @@ describe('linked-list.js', () => {
     let list = new LinkedList(10);
     let second = new LinkedList(20);
     let third = new LinkedList(30);
+    
 
     list.append(second); // new LinkedList(20)
     list.append(third); // new LinkedList(30)
@@ -40,6 +41,31 @@ describe('linked-list.js', () => {
     expect(list.value).toEqual(10);
     expect(list.next.value).toEqual(30);
     expect(list.next.next).toEqual(null);
+  });
+
+  test('finding given element and returning the index', () => {
+    let list = new LinkedList(10);
+    let second = new LinkedList(20);
+    let third = new LinkedList(30);
+    let shouldBeError = new LinkedList(123);
+
+    list.append(second); // new LinkedList(20)
+    list.append(third); // new LinkedList(30)
+
+    expect(list.value).toEqual(10);
+    expect(list.next.value).toEqual(20);
+    expect(list.next.next.value).toEqual(30);
+    expect(list.next.next.next).toEqual(null);
+
+    expect(list.find(10)).toEqual(list);
+    expect(list.find(list)).toEqual(list);
+    expect(list.find(20)).toEqual(second);
+    expect(list.find(second)).toEqual(second);
+    expect(list.find(30)).toEqual(third);
+    expect(list.find(third)).toEqual(third);
+
+    expect(list.find(123)).toEqual(`no data: '123' found out of 3 nodes`);
+    expect(list.find(shouldBeError)).toEqual(`no distinct node object found out of 3 nodes`);
   });
 
 

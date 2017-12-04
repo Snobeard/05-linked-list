@@ -6,7 +6,7 @@ class LinkedList{
   constructor(value) {
     this.value = value;
     this.next = null;
-  };
+  }
 
   append(node) {
     if (!(node instanceof LinkedList))
@@ -19,7 +19,7 @@ class LinkedList{
       this.next.append(node);
     
     return this;
-  };
+  }
 
   remove(node) {
     if (!(node instanceof LinkedList))
@@ -35,10 +35,32 @@ class LinkedList{
     }
 
     return this;
-  };
+  }
 
-};
+  find(node, num) {
+    let counter = num + 1 || 1;
 
+    if (!(node instanceof LinkedList)) {
+      if (this.value === node)
+        return this;
+      
+      if (!this.next) 
+        return `no data: '${node}' found out of ${counter} nodes`;
+  
+      return this.next.find(node, counter);
+      
+    } else {
+      if (this === node)
+        return this;
+
+      if (!this.next)
+        return `no distinct node object found out of ${counter} nodes`;
+    
+      return this.next.find(node, counter);
+    }
+  }     
+}
+        
 module.exports = LinkedList;
 
-// TODO: implement find(value)
+// TODO : implement find(value)

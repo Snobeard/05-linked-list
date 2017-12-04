@@ -20,6 +20,8 @@ describe('linked-list.js', () => {
     expect(result.next.value).toEqual(4);
     expect(result.next.next.value).toEqual(10);
     expect(result.next.next.next).toEqual(null);
+
+    expect(() => result.append('seven')).toThrow();    
   });
 
   test('remove should update the next property and erase an element', () => {
@@ -39,6 +41,18 @@ describe('linked-list.js', () => {
     list.remove(second);
 
     expect(list.value).toEqual(10);
+    expect(list.next.value).toEqual(30);
+    expect(list.next.next).toEqual(null);
+
+    let fourth = new LinkedList(40);
+    list.append(fourth);
+
+    expect(list.next.next.value).toEqual(40);
+    expect(list.next.next.next).toEqual(null);
+    expect(() => list.remove('seven')).toThrow();
+    
+    list.remove(fourth);
+
     expect(list.next.value).toEqual(30);
     expect(list.next.next).toEqual(null);
   });

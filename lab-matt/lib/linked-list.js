@@ -25,21 +25,21 @@ class LinkedList{
     if (!(node instanceof LinkedList))
       throw new TypeError('<node> should be an instance of LinkedList');
 
-    if (!this.next)
-      return this;
+    if (this.next.next === null && this.next === node)
+      return this.next = null;
 
     if (this.next === node) 
-      this.next = this.next.next;
-    else {
-      this.next.remove(node);
-    }
+      return this.next = this.next.next;
+    else 
+      return this.next.remove(node);
+    
 
-    return this;
   }
 
   find(node, num) {
     let counter = num + 1 || 1;
 
+    // mattL - if searching by linkedlist value
     if (!(node instanceof LinkedList)) {
       if (this.value === node)
         return this;
@@ -49,6 +49,7 @@ class LinkedList{
   
       return this.next.find(node, counter);
       
+    // mattL - if searching by linkedlist object    
     } else {
       if (this === node)
         return this;
@@ -62,5 +63,3 @@ class LinkedList{
 }
         
 module.exports = LinkedList;
-
-// TODO : implement find(value)
